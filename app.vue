@@ -7,14 +7,20 @@
         <h4>1) Choose a gender</h4>
         <div class="option-buttons">
           <button class="option-btn rounded-l-lg"
-            :class="options.gender === Gender.BOY && 'option-btn-active'">
+            :class="options.gender === Gender.BOY && 'option-btn-active'"
+            @click="options.gender = Gender.BOY"
+            >
             Boy
           </button>
-          <button class="option-btn" :class="options.gender === Gender.GIRL && 'option-btn-active'">
+          <button class="option-btn" :class="options.gender === Gender.GIRL && 'option-btn-active'"
+          @click="options.gender = Gender.GIRL"
+          >
             Girl
           </button>
           <button class="option-btn rounded-r-lg"
-            :class="options.gender === Gender.UNISEX && 'option-btn-active'">
+            :class="options.gender === Gender.UNISEX && 'option-btn-active'"
+            @click="options.gender = Gender.UNISEX"
+          >
             Unisex
           </button>
         </div>
@@ -23,19 +29,31 @@
         <h4>2) Choose thte name's popularity</h4>
         <div class="option-buttons">
           <button class="option-btn rounded-l-lg"
-            :class="options.popularity === Popularity.TRENDY && 'option-btn-active'">Trendy</button>
+            :class="options.popularity === Popularity.TRENDY && 'option-btn-active'"
+            @click="options.popularity = Popularity.TRENDY"  
+          >Trendy</button>
           <button class="option-btn rounded-r-lg"
-            :class="options.popularity === Popularity.UNIQUE && 'option-btn-active'">Unique</button>
+            :class="options.popularity === Popularity.UNIQUE && 'option-btn-active'"
+            @click="options.popularity = Popularity.UNIQUE"  
+          >Unique</button>
         </div>
       </div>
       <div class="option-container">
         <h4>3) Choose name's length</h4>
         <div class="option-buttons">
           <button class="option-btn rounded-l-lg"
-            :class="options.nameLength === NameLength.LONG && 'option-btn-active'">Long</button>
-          <button class="option-btn" :class="options.nameLength === NameLength.SHORT && 'option-btn-active'">Short</button>
+            :class="options.nameLength === NameLength.LONG && 'option-btn-active'"
+            @click="options.nameLength = NameLength.LONG"  
+          >Long</button>
+          <button class="option-btn" :class="options.nameLength === NameLength.SHORT && 'option-btn-active'"
+            @click="options.nameLength = NameLength.SHORT"          
+          >
+            Short
+          </button>
           <button class="option-btn rounded-r-lg"
-            :class="options.nameLength === NameLength.ALL && 'option-btn-active'">All</button>
+            :class="options.nameLength === NameLength.ALL && 'option-btn-active'"
+            @click="options.nameLength = NameLength.ALL"  
+          >All</button>
         </div>
       </div>
     </div>
