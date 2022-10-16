@@ -1,1 +1,0 @@
-export { default } from "file:///Users/taekty/Works/nuxt3-learning/nuxt-projects/01-Baby-Name-Generator/node_modules/@nuxt/vite-builder/dist/runtime/client.manifest.mjs"

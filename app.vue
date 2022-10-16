@@ -66,7 +66,7 @@
           </button>
         </div>
       </div>
-      <button class="save-btn px-8 py-4">Find Names</button>
+      <button @click="computeSelectedNames" class="save-btn px-8 py-4">Find Names</button>
     </div>
     {{ selectedNames}}
   </div>
@@ -86,6 +86,18 @@
     popularity: Popularity.TRENDY,
     nameLength: NameLength.SHORT,
   })
+
+  const computeSelectedNames = () =>{
+    const filteredNames = names
+    .filter((name) => name.gender === options.gender)
+    .filter((name) => name.popularity === options.popularity)
+    .filter((name) => {
+      if (options.nameLength === NameLength.ALL) return true
+      else return name.nameLength === options.nameLength    
+    })
+
+    selectedNames.value = filteredNames.map((name) => name.name)
+  }
 
   // ref is a function that returns a reactive object
   //Define a ref to hold the names
