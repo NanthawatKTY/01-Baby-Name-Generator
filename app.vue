@@ -1,5 +1,11 @@
 <script setup lang="ts">
-  import {Gender, Popularity, NameLength ,names} from "@/nameData"
+  import {
+    Gender,
+    Popularity,
+    NameLength,
+    names
+  } from "@/nameData"
+import NameCard from "./components/Card/NameCard.vue"
 
   interface OptionState {
     gender: string;
@@ -13,46 +19,38 @@
     nameLength: NameLength.SHORT,
   })
 
-  const computeSelectedNames = () =>{
+  const computeSelectedNames = () => {
     const filteredNames = names
-    .filter((name) => name.gender === options.gender)
-    .filter((name) => name.popularity === options.popularity)
-    .filter((name) => {
-      if (options.nameLength === NameLength.ALL) return true
-      else return name.nameLength === options.nameLength    
-    })
+      .filter((name) => name.gender === options.gender)
+      .filter((name) => name.popularity === options.popularity)
+      .filter((name) => {
+        if (options.nameLength === NameLength.ALL) return true
+        else return name.nameLength === options.nameLength
+      })
 
     selectedNames.value = filteredNames.map((name) => name.name)
-
-    const optionsArray = [
-      {
-        title: "1) Choose a gender",
-        category: "gender",
-        buttons: [Gender.GIRL, Gender.BOY, Gender.UNISEX]
-      },
-      {
-        title: "2) Choose the name's popularity",
-        category: "popularity",
-        buttons: [Popularity.TRENDY, Popularity.UNIQUE]
-      },
-      {
-        title: "2) Choose the name's popularity",
-        category: "popularity",
-        buttons: [Popularity.TRENDY, Popularity.UNIQUE]
-      },
-      {
-        title: "3) Choose name's length",
-        category: "nameLength",
-        buttons: [NameLength.LONG, NameLength.SHORT, NameLength.ALL]
-      },
-    ]
-
   }
 
-  // ref is a function that returns a reactive object
+    // ref is a function that returns a reactive object
   //Define a ref to hold the names
-  const selectedNames = ref<string[]>([])
+  const selectedNames = ref < string[] > ([])
 
+  const optionsArray = [{
+      title: "1) Choose a gender",
+      category: "gender",
+      buttons: [Gender.GIRL, Gender.BOY, Gender.UNISEX]
+    },
+    {
+      title: "2) Choose the name's popularity",
+      category: "popularity",
+      buttons: [Popularity.TRENDY, Popularity.UNIQUE]
+    },
+    {
+      title: "3) Choose name's length",
+      category: "nameLength",
+      buttons: [NameLength.LONG, NameLength.SHORT, NameLength.ALL]
+    },
+  ]
 </script>
 
 <template>
@@ -60,18 +58,16 @@
     <h1>Baby Name Generator</h1>
     <p>Choose your options and click the "Find Names" button below.</p>
     <div class="options-container">
-      <Option v-for="option in optionsArray" 
-      :key="option.title" 
-      :option="option"
-      :options="options"
+      <Option 
+        v-for="option in optionsArray" 
+        :key="option.title" 
+        :option="option" 
+        :options="options" 
       />
       <button @click="computeSelectedNames" class="save-btn px-8 py-4">Find Names</button>
     </div>
     <div class="cards-container">
-      <div v-for="name in selectedNames" :key="name" class="card">
-        <h3>{{name}}</h3>
-        <p>x</p>
-      </div>
+      <CardNameCard v-for="name in selectedNames" :key="name" :name="name"/>
     </div>
   </div>
 </template>
@@ -98,7 +94,7 @@
     width: 95%;
     position: relative;
 
-    .save-btn{
+    .save-btn {
       background-color: rgb(249, 87, 89);
       color: #fff;
       border-radius: 6.5rem;
@@ -107,30 +103,10 @@
       cursor: pointer;
     }
   }
-
-  
   .cards-container {
     display: flex;
     /* flex-wrap: wrap; */
     justify-content: center;
     margin-top: 3rem;
-  }
-
-  .card{
-    background-color: rgba(21, 68, 222, 0.689);
-    width: 30%;
-    color: white;
-    padding: 1rem;
-    border-radius: 1rem;
-    margin: 0rem 0.5rem 1rem 0rem;
-    position: relative;
-    
-    p{
-      position: absolute;
-      top: -5%;
-      left: 90%;
-      color: rgb(248, 243, 243);
-      cursor: pointer;
-    }
   }
 </style>
