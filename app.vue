@@ -1,77 +1,3 @@
-<template>
-  <div class="container">
-    <h1>Baby Name Generator</h1>
-    <p>Choose your options and click the "Find Names" button below.</p>
-    <div class="options-container">
-      <div class="option-container">
-        <h4>1) Choose a gender</h4>
-        <div class="option-buttons">
-          <button class="option-btn rounded-l-lg"
-            :class="options.gender === Gender.BOY && 'option-btn-active'"
-            @click="options.gender = Gender.BOY"
-            >
-            Boy
-          </button>
-          <button class="option-btn" 
-            :class="options.gender === Gender.GIRL && 'option-btn-active'"
-            @click="options.gender = Gender.GIRL"
-          >
-            Girl
-          </button>
-          <button class="option-btn rounded-r-lg"
-            :class="options.gender === Gender.UNISEX && 'option-btn-active'"
-            @click="options.gender = Gender.UNISEX"  
-          >
-            Unisex
-          </button>
-        </div>
-      </div>
-      <div class="option-container">
-        <h4>2) Choose thte name's popularity</h4>
-        <div class="option-buttons">
-          <button class="option-btn rounded-l-lg"
-            :class="options.popularity === Popularity.TRENDY && 'option-btn-active'"
-            @click="options.popularity = Popularity.TRENDY"  
-          >
-            Trendy
-          </button>
-          <button class="option-btn rounded-r-lg"
-            :class="options.popularity === Popularity.UNIQUE && 'option-btn-active'"
-            @click="options.popularity = Popularity.UNIQUE"
-          >
-            Unique
-          </button>
-        </div>
-      </div>
-      <div class="option-container">
-        <h4>3) Choose name's length</h4>
-        <div class="option-buttons">
-          <button class="option-btn rounded-l-lg"
-            :class="options.nameLength === NameLength.LONG && 'option-btn-active'"
-            @click="options.nameLength = NameLength.LONG"
-          >
-           Long
-          </button>
-          <button class="option-btn" 
-            :class="options.nameLength === NameLength.SHORT && 'option-btn-active'"
-            @click="options.nameLength = NameLength.SHORT"  
-          >
-            Short
-          </button>
-          <button class="option-btn rounded-r-lg"
-            :class="options.nameLength === NameLength.ALL && 'option-btn-active'"
-            @click="options.nameLength = NameLength.ALL"
-          >
-            All
-          </button>
-        </div>
-      </div>
-      <button @click="computeSelectedNames" class="save-btn px-8 py-4">Find Names</button>
-    </div>
-    {{ selectedNames}}
-  </div>
-</template>
-
 <script setup lang="ts">
   import {Gender, Popularity, NameLength ,names} from "@/nameData"
 
@@ -97,6 +23,30 @@
     })
 
     selectedNames.value = filteredNames.map((name) => name.name)
+
+    const optionsArray = [
+      {
+        title: "1) Choose a gender",
+        category: "gender",
+        buttons: [Gender.GIRL, Gender.BOY, Gender.UNISEX]
+      },
+      {
+        title: "2) Choose the name's popularity",
+        category: "popularity",
+        buttons: [Popularity.TRENDY, Popularity.UNIQUE]
+      },
+      {
+        title: "2) Choose the name's popularity",
+        category: "popularity",
+        buttons: [Popularity.TRENDY, Popularity.UNIQUE]
+      },
+      {
+        title: "3) Choose name's length",
+        category: "nameLength",
+        buttons: [NameLength.LONG, NameLength.SHORT, NameLength.ALL]
+      },
+    ]
+
   }
 
   // ref is a function that returns a reactive object
@@ -104,6 +54,28 @@
   const selectedNames = ref<string[]>([])
 
 </script>
+
+<template>
+  <div class="container">
+    <h1>Baby Name Generator</h1>
+    <p>Choose your options and click the "Find Names" button below.</p>
+    <div class="options-container">
+      <Option v-for="option in optionsArray" 
+      :key="option.title" 
+      :option="option"
+      :options="options"
+      />
+      <button @click="computeSelectedNames" class="save-btn px-8 py-4">Find Names</button>
+    </div>
+    <div class="cards-container">
+      <div v-for="name in selectedNames" :key="name" class="card">
+        <h3>{{name}}</h3>
+        <p>x</p>
+      </div>
+    </div>
+  </div>
+</template>
+
 
 <style lang="scss" scoped>
   .container {
@@ -136,26 +108,29 @@
     }
   }
 
-  .option-container {
-    margin-bottom: 2rem;
+  
+  .cards-container {
+    display: flex;
+    /* flex-wrap: wrap; */
+    justify-content: center;
+    margin-top: 3rem;
   }
 
-  .option-btn {
-    background-color: #fff;
-    border: 1px solid #333;
-    padding: 0.5rem 1rem;
-    margin: 0.5rem 0rem;
-    cursor: pointer;
-
-    &:hover {
-      background-color: #333;
-      color: #fff;
+  .card{
+    background-color: rgba(21, 68, 222, 0.689);
+    width: 30%;
+    color: white;
+    padding: 1rem;
+    border-radius: 1rem;
+    margin: 0rem 0.5rem 1rem 0rem;
+    position: relative;
+    
+    p{
+      position: absolute;
+      top: -5%;
+      left: 90%;
+      color: rgb(248, 243, 243);
+      cursor: pointer;
     }
   }
-
-  .option-btn-active {
-    background-color: rgb(30, 26, 26);
-    color: #fff;
-  }
-
 </style>
