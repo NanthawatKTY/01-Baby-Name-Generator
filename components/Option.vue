@@ -26,6 +26,8 @@
     const props = defineProps < OptionProps > ()
 
     const computeButtonClasses = (value: string, index: number) => {
+        // console.log(value, index)
+        
         const classNames = [];
         if (props.options[props.option.category] === value) {
             classNames.push("option-active");
@@ -33,6 +35,8 @@
         if (index === 0) classNames.push("option-left");
         if (index === props.option.buttons.length - 1)
             classNames.push("option-right");
+        // console.log("Class name:" + classNames.join(" "));
+        
         return classNames.join(" ");
     };
 </script>
@@ -44,7 +48,8 @@
             <div class="option-buttons">
                 <button v-for="(value, index) in option.buttons" :key="value" class="option"
                     :class="computeButtonClasses(value, index)" @click="options[option.category] = value">
-                    {{ value }}
+                    <h1>Option: {{ options[option.category] }}</h1>
+                    <p class="text-orange-400">Value: {{ value }}</p>
                 </button>
             </div>
         </div>

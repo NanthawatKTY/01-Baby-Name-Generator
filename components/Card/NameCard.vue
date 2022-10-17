@@ -10,7 +10,7 @@
     //defineEmit is a function that takes an object as an argument
     const emit = defineEmits(["remove"])
 
-    const removeName = () => {
+    const removeName:any = () => {
         //emit an event called remove from app.vue
         emit("remove", props.index)
     }

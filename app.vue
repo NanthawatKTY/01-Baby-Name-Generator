@@ -18,7 +18,7 @@
     nameLength: NameLength.SHORT,
   })
 
-  const computeSelectedNames = () => {
+  const computeSelectedNames:any = () => {
     const filteredNames = names
       .filter((name) => name.gender === options.gender)
       .filter((name) => name.popularity === options.popularity)
@@ -27,7 +27,7 @@
         else return name.nameLength === options.nameLength
       })
 
-    selectedNames.value = filteredNames.map((name) => name.name)
+     return selectedNames.value = filteredNames.map((name) => name.name)
   }
 
     // ref is a function that returns a reactive object
