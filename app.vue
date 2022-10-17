@@ -5,7 +5,6 @@
     NameLength,
     names
   } from "@/nameData"
-import NameCard from "./components/Card/NameCard.vue"
 
   interface OptionState {
     gender: string;
@@ -13,7 +12,7 @@ import NameCard from "./components/Card/NameCard.vue"
     nameLength: string;
   }
 
-  const options = reactive < OptionState > ({
+  const options:any = reactive < OptionState> ({
     gender: Gender.BOY,
     popularity: Popularity.TRENDY,
     nameLength: NameLength.SHORT,
@@ -34,6 +33,15 @@ import NameCard from "./components/Card/NameCard.vue"
     // ref is a function that returns a reactive object
   //Define a ref to hold the names
   const selectedNames = ref < string[] > ([])
+
+  const removeName = (index: number) => {
+    const filteredNames = [...selectedNames.value]
+
+    //remove the name at the index for 1 element
+    filteredNames.splice(index, 1)
+
+    selectedNames.value = filteredNames
+  }
 
   const optionsArray = [{
       title: "1) Choose a gender",
@@ -67,7 +75,13 @@ import NameCard from "./components/Card/NameCard.vue"
       <button @click="computeSelectedNames" class="save-btn px-8 py-4">Find Names</button>
     </div>
     <div class="cards-container">
-      <CardNameCard v-for="name in selectedNames" :key="name" :name="name"/>
+      <CardNameCard 
+        v-for="(name, index) in selectedNames" 
+        :key="name" 
+        :name="name"
+        @remove="() => removeName(index)"
+        :index="index"
+      />
     </div>
   </div>
 </template>
@@ -77,6 +91,7 @@ import NameCard from "./components/Card/NameCard.vue"
   .container {
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
+    justify-content: center;
     margin: 0 auto;
     max-width: 50rem;
     color: #333;
@@ -89,10 +104,11 @@ import NameCard from "./components/Card/NameCard.vue"
   .options-container {
     background-color: rgba(253, 223, 223, 0.689);
     border-radius: 2rem;
-    padding: 2rem;
-    margin: 2rem 0;
-    width: 95%;
+    padding: 1rem;
+    margin: 4rem 0 0 0;
+    width: 100%;
     position: relative;
+    justify-content: center;
 
     .save-btn {
       background-color: rgb(249, 87, 89);
@@ -101,12 +117,14 @@ import NameCard from "./components/Card/NameCard.vue"
       border: none;
       font-size: 1rem;
       cursor: pointer;
+      margin: 1rem 0 0 0;
     }
   }
   .cards-container {
     display: flex;
-    /* flex-wrap: wrap; */
+    flex-wrap: wrap;
     justify-content: center;
-    margin-top: 3rem;
+    margin: 3rem 0;
+    /* gap: 1rem; */
   }
 </style>

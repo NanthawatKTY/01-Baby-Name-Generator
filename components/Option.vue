@@ -55,6 +55,7 @@
 <style lang="scss" scoped>
     .option-container {
         margin-bottom: 2rem;
+        margin-top: 1rem;
     }
 
     .option {
